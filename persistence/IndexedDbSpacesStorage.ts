@@ -51,7 +51,7 @@ class IndexedDbSpacesStorage implements SpacesPersistence {
     console.debug(" loading spaces...")
     const spacesStore = useSpacesStore()
     const keys: IDBValidKey[] = await this.db.getAllKeys(this.STORE_IDENT)
-    _.forEach(keys, key => {
+    _.forEach(keys, (key:any) => {
       this.db.get(this.STORE_IDENT, key)
         .then((space: Space) => {
           spacesStore.putSpace(space)

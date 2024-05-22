@@ -96,7 +96,7 @@ export const useSpacesStore = defineStore('spaces', () => {
   const nameExists = computed(() => {
     return (searchName: string) => {
       //console.log("checking for existence --- ", searchName)
-      return _.find([...spaces.value.values()], s => {
+      return _.find([...spaces.value.values()], (s:Space) => {
         //console.log("comparing", s.label, searchName?.trim(), s.label === searchName?.trim())
         return s.label === searchName?.trim()
       })
