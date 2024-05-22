@@ -4,9 +4,6 @@ import {useAuthStore} from "stores/authStore";
 import {collection, deleteDoc, doc, getDoc, getDocs, setDoc, updateDoc} from "firebase/firestore";
 import FirebaseServices from "src/services/firebase/FirebaseServices";
 import {LocalStorage} from "quasar";
-import {APP_INSTALLATION_ID} from "boot/constants";
-import {useDB} from "src/services/usePersistenceService";
-import IndexedDbPersistenceService from "src/services/IndexedDbPersistenceService";
 import {useUiStore} from "stores/uiStore";
 import SpacesPersistence from "src/spaces/persistence/SpacesPersistence";
 
@@ -22,17 +19,13 @@ function spacesCollection() {
 
 class FirestoreSpacesPersistence implements SpacesPersistence {
 
-  private indexedDB: typeof IndexedDbPersistenceService = null as unknown as typeof IndexedDbPersistenceService
-
-  private installationId = LocalStorage.getItem(APP_INSTALLATION_ID) as string || '---'
-
   getServiceName(): string {
-    return "FirestoreSpacesPersistence"
+    return this.constructor.name
   }
 
   async init() {
     console.log(" ...initializing GitPersistenceService")
-    this.indexedDB = useDB(undefined).db as typeof IndexedDbPersistenceService
+    //this.indexedDB = useDB(undefined).db as typeof IndexedDbPersistenceService
     return Promise.resolve("")
   }
 

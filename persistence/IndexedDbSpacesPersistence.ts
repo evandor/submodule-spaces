@@ -4,7 +4,7 @@ import SpacesPersistence from "src/spaces/persistence/SpacesPersistence";
 import {Space} from "src/spaces/models/Space";
 import {useSpacesStore} from "src/spaces/stores/spacesStore";
 
-class IndexedDbSpacesStorage implements SpacesPersistence {
+class IndexedDbSpacesPersistence implements SpacesPersistence {
 
   private STORE_IDENT = 'spaces';
 
@@ -77,4 +77,4 @@ class IndexedDbSpacesStorage implements SpacesPersistence {
 
 }
 
-export default new IndexedDbSpacesStorage()
+export default new IndexedDbSpacesPersistence()
