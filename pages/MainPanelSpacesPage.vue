@@ -72,7 +72,7 @@ import {useTabsetsStore} from "src/tabsets/stores/tabsetsStore";
 
 const spacesStore = useSpacesStore()
 const checked = ref<boolean[][]>([[]])
-const spaces = ref<object[]>([])
+const spaces = ref<any[]>([])
 const sortedSpaces = ref<Space[]>([])
 const sortedTabsets = ref<Tabset[]>([])
 const rows = ref<object[]>([])

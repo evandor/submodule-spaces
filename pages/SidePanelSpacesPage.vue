@@ -167,7 +167,7 @@ const tabsetName = ref<object>(null as unknown as object)
 const tabsetNameOptions = ref<object[]>([])
 const openTabs = ref<chrome.tabs.Tab[]>([])
 const currentTabset = ref<Tabset | undefined>(undefined)
-const currentChromeTab = ref<chrome.tabs.Tab>(null as unknown as chrome.tabs.Tab)
+const currentChromeTab = ref<chrome.tabs.Tab | undefined>(undefined)
 const tabsetsForSpaces = ref<Map<string, Tabset[]>>(new Map())
 const hoveredSpace = ref<string | undefined>(undefined)
 const sortedSpaces = ref<Space[]>([])
@@ -262,7 +262,9 @@ watchEffect(() => {
 
 watchEffect(() => {
   const windowId = useWindowsStore().currentChromeWindow?.id || 0
-  currentChromeTab.value = useTabsStore2().getCurrentChromeTab(windowId) || useTabsStore2().getCurrentChromeTab
+  const c1: chrome.tabs.Tab | undefined = useTabsStore2().getCurrentChromeTab(windowId)
+  // const c2: chrome.tabs.Tab | undefined = useTabsStore2().getCurrentChromeTab
+  currentChromeTab.value = c1 ? c1 : undefined
 })
 
 watchEffect(() => {
