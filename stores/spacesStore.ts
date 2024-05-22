@@ -2,12 +2,10 @@ import {defineStore} from 'pinia';
 import _ from 'lodash'
 import {computed, ref, watch, watchEffect} from "vue";
 import {Space} from "src/spaces/models/Space";
-import PersistenceService from "src/services/PersistenceService";
 import {LocalStorage, uid} from "quasar";
 import throttledQueue from "throttled-queue";
 import SpacesPersistence from "src/spaces/persistence/SpacesPersistence";
 import {useDB} from "src/services/usePersistenceService";
-import {useAuthStore} from "stores/authStore";
 import {SyncType} from "stores/appStore";
 
 /**
