@@ -87,11 +87,11 @@ onMounted(() => {
 })
 
 watchEffect(() => {
-  sortedSpaces.value = _.sortBy([...spacesStore.spaces.values()] as Space[], [ts => ts.label.toLowerCase()])
+  sortedSpaces.value = _.sortBy([...spacesStore.spaces.values()] as Space[], [(ts:Space) => ts.label.toLowerCase()])
 })
 
 watchEffect(() => {
-  sortedTabsets.value = _.sortBy([...useTabsetsStore().tabsets.values()] as Tabset[], [ts => ts.name.toLowerCase()])
+  sortedTabsets.value = _.sortBy([...useTabsetsStore().tabsets.values()] as Tabset[], [(ts:Tabset) => ts.name.toLowerCase()])
 })
 
 watchEffect(() => {

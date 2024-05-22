@@ -175,7 +175,7 @@ const randomKey = ref<string>(uid())
 
 function getSortedSpaces() {
   return _.sortBy([...spacesStore.spaces.values()],
-    [function (o) {
+    [function (o:any) {
       return o.label?.toLowerCase()
     }]);
 }
@@ -238,11 +238,11 @@ async function getTabsetsForSpaces() {
   res.forEach((value: Tabset[], key: string) => {
     res.set(key,
       _.orderBy(value, [
-        function (o) {
+        function (o:any) {
           console.log("o", o.status)
           return o.status.toString();
         },
-        function (o) {
+        function (o:any) {
           return o.name.toLowerCase();
         }
       ],['desc','asc'] ))
@@ -294,10 +294,10 @@ const tabsetsWithoutSpaces = (): Tabset[] => {
       ts.status !== TabsetStatus.ARCHIVED &&
       ts.status !== TabsetStatus.DELETED),
     [
-      function (o) {
+      function (o:any) {
         return o.status === TabsetStatus.FAVORITE ? 0 : 1
       },
-      function (o) {
+      function (o:any) {
         return o.name.toLowerCase()
       }
     ])
@@ -307,7 +307,7 @@ const addSpace = () => {
   $q.dialog({
     component: NewSpaceDialog,
     componentProps: {
-      tabsetId: tabsStore.currentTabsetId,
+      tabsetId: useTabsetsStore().currentTabsetId,
       fromPanel: true
     }
   })
@@ -323,7 +323,7 @@ const openNewTabsetDialog = (spaceId: string) => {
   $q.dialog({
     component: NewTabsetDialog,
     componentProps: {
-      tabsetId: tabsStore.currentTabsetId,
+      tabsetId: useTabsetsStore().currentTabsetId,
       spaceId: spaceId,
       fromPanel: true
     }
