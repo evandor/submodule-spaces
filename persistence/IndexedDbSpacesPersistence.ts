@@ -63,6 +63,9 @@ class IndexedDbSpacesPersistence implements SpacesPersistence {
   async migrate() {
     // 0.4.11 - 0.5.0
     const oldDB = await openDB("db")
+    if (!oldDB || !oldDB.objectStoreNames.contains(this.STORE_IDENT)) {
+      return // no migration necessary, no old data
+    }
     const oldSpaces = await oldDB.getAll('spaces')
     for(const oldSpace of oldSpaces) {
       const optionalSpaceInNewDb = await this.db.get(this.STORE_IDENT, oldSpace.id) as Space | undefined
