@@ -3,6 +3,8 @@ import _ from "lodash";
 import SpacesPersistence from "src/spaces/persistence/SpacesPersistence";
 import {Space} from "src/spaces/models/Space";
 import {useSpacesStore} from "src/spaces/stores/spacesStore";
+import {Tabset} from "src/tabsets/models/Tabset";
+import {useTabsetsStore} from "src/tabsets/stores/tabsetsStore";
 
 class IndexedDbSpacesPersistence implements SpacesPersistence {
 
@@ -49,15 +51,11 @@ class IndexedDbSpacesPersistence implements SpacesPersistence {
 
   async loadSpaces(): Promise<any> {
     console.debug(" loading spaces...")
-    const spacesStore = useSpacesStore()
-    const keys: IDBValidKey[] = await this.db.getAllKeys(this.STORE_IDENT)
-    _.forEach(keys, (key:any) => {
-      this.db.get(this.STORE_IDENT, key)
-        .then((space: Space) => {
-          spacesStore.putSpace(space)
-        })
-        .catch(err => console.log("err", err))
+    const spaces = await this.db.getAll(this.STORE_IDENT)
+    spaces.forEach((s: Space) => {
+      useSpacesStore().putSpace(s)
     })
+    return Promise.resolve()
   }
 
   async migrate() {
