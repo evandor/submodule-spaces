@@ -6,7 +6,6 @@ import {LocalStorage, uid} from "quasar";
 import throttledQueue from "throttled-queue";
 import SpacesPersistence from "src/spaces/persistence/SpacesPersistence";
 import {useDB} from "src/services/usePersistenceService";
-import {SyncType} from "stores/appStore";
 
 /**
  * a pinia store for "Spaces".
@@ -44,18 +43,19 @@ export const useSpacesStore = defineStore('spaces', () => {
    * initialize store with
    * @param ps a persistence storage
    */
-  async function initialize(syncType: SyncType, isAuthenticated: boolean) {
+  async function initialize(p: SpacesPersistence) {
 
-    if (!isAuthenticated) {
-      console.debug("%not authenticated", "font-weight:bold")
-      storage = useDB(undefined).spacesIndexedDb
-    } else if (syncType === SyncType.FIRESTORE) {
-      console.debug("%csyncType " + syncType, "font-weight:bold")
-      storage = useDB(undefined).spacesFirestoreDb
-    } else {
-      console.debug("%cfallback, syncType " + syncType, "font-weight:bold")
-      storage = useDB().spacesIndexedDb
-    }
+    // if (!isAuthenticated) {
+    //   console.debug("%not authenticated", "font-weight:bold")
+    //   storage = useDB(undefined).spacesIndexedDb
+    // } else if (syncType === SyncType.FIRESTORE) {
+    //   console.debug("%csyncType " + syncType, "font-weight:bold")
+    //   storage = useDB(undefined).spacesFirestoreDb
+    // } else {
+    //   console.debug("%cfallback, syncType " + syncType, "font-weight:bold")
+    //   storage = useDB().spacesIndexedDb
+    // }
+    storage = p
 
     console.debug(" ...initializing spacesStore", storage.getServiceName())
     await storage.init()
