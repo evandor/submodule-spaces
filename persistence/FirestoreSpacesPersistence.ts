@@ -4,7 +4,7 @@ import {useAuthStore} from "stores/authStore";
 import {collection, deleteDoc, doc, getDoc, getDocs, setDoc, updateDoc} from "firebase/firestore";
 import FirebaseServices from "src/services/firebase/FirebaseServices";
 import {LocalStorage} from "quasar";
-import {useUiStore} from "stores/uiStore";
+import {useUiStore} from "src/ui/stores/uiStore";
 import SpacesPersistence from "src/spaces/persistence/SpacesPersistence";
 
 const STORE_IDENT = 'spaces';
