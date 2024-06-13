@@ -90,7 +90,7 @@
     <q-page-sticky expand position="top" class="darkInDarkMode brightInBrightMode">
 
       <FirstToolbarHelper
-        @was-clicked="useUiStore().sidePanelSetActiveView(SidePanelView.MAIN)"
+        @was-clicked="useUiStore().sidePanelSetActiveView(SidePanelViews.MAIN)"
         :show-back-button="true">
         <template v-slot:title>
           <!--          <q-icon name="o_space_dashboard" color="primary" size="18px"/>-->
@@ -144,7 +144,7 @@ import {useSpacesStore} from "src/spaces/stores/spacesStore";
 import NewSpaceDialog from "src/spaces/dialogues/NewSpaceDialog.vue";
 import NavigationService from "src/services/NavigationService";
 import NewTabsetDialog from "src/tabsets/dialogues/NewTabsetDialog.vue";
-import {SidePanelView, useUiStore} from "src/ui/stores/uiStore";
+import {useUiStore} from "src/ui/stores/uiStore";
 import InfoMessageWidget from "src/ui/widgets/InfoMessageWidget.vue";
 import FirstToolbarHelper from "pages/sidepanel/helper/FirstToolbarHelper.vue";
 import {useWindowsStore} from "src/windows/stores/windowsStore";
@@ -155,6 +155,7 @@ import {useTabsetService} from "src/tabsets/services/TabsetService2";
 import {useTabsStore2} from "src/tabsets/stores/tabsStore2";
 import {useTabsetsStore} from "src/tabsets/stores/tabsetsStore";
 import {useFeaturesStore} from "src/features/stores/featuresStore";
+import {SidePanelViews} from "src/models/SidePanelViews";
 
 const {inBexMode} = useUtils()
 
