@@ -23,7 +23,7 @@ class IndexedDbSpacesPersistence implements SpacesPersistence {
   }
 
   private async initDatabase(): Promise<IDBPDatabase> {
-    console.debug(" about to initialize indexedDB (Spaces)")
+    console.debug(" ...about to initialize indexedDB (Spaces)")
     const ctx = this
     return await openDB("spacesDB", 1, {
       // upgrading see https://stackoverflow.com/questions/50193906/create-index-on-already-existing-objectstore
@@ -50,7 +50,7 @@ class IndexedDbSpacesPersistence implements SpacesPersistence {
   }
 
   async loadSpaces(): Promise<any> {
-    console.debug(" loading spaces...")
+    console.debug(" ...loading spaces...")
     const spaces = await this.db.getAll(this.STORE_IDENT)
     spaces.forEach((s: Space) => {
       useSpacesStore().putSpace(s)
