@@ -57,12 +57,12 @@ export const useSpacesStore = defineStore('spaces', () => {
     // }
     storage = p
 
-    console.debug(" ...initializing spacesStore", storage.getServiceName())
     await storage.init()
 
     // TODO remove after version 0.4.12
     await storage.migrate()
 
+    console.debug(" ...initialized spaces: Store",'✅')
     await storage.loadSpaces()
   }
 
