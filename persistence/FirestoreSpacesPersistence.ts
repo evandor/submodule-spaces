@@ -24,8 +24,7 @@ class FirestoreSpacesPersistence implements SpacesPersistence {
   }
 
   async init() {
-    console.debug(` ...initializing ${this.getServiceName()}`)
-    //this.indexedDB = useDB(undefined).db as typeof IndexedDbPersistenceService
+    console.debug(` ...initialized spaces: ${this.getServiceName()}`,'✅' )
     return Promise.resolve("")
   }
 
