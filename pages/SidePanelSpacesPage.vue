@@ -240,7 +240,6 @@ async function getTabsetsForSpaces() {
     res.set(key,
       _.orderBy(value, [
         function (o:any) {
-          console.log("o", o.status)
           return o.status.toString();
         },
         function (o:any) {
