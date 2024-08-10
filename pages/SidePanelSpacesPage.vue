@@ -138,8 +138,7 @@ import {Tabset, TabsetStatus, TabsetType} from "src/tabsets/models/Tabset";
 import {useRouter} from "vue-router";
 import {useUtils} from "src/core/services/Utils";
 import {uid, useQuasar} from "quasar";
-import NavTabsetsListWidgetNonBex from "components/widgets/NavTabsetsListWidgetNonBex.vue";
-import {FeatureIdent} from "src/models/FeatureIdent";
+import {FeatureIdent} from "src/app/models/FeatureIdent";
 import {useSpacesStore} from "src/spaces/stores/spacesStore";
 import NewSpaceDialog from "src/spaces/dialogues/NewSpaceDialog.vue";
 import NavigationService from "src/services/NavigationService";
@@ -156,6 +155,7 @@ import {useTabsStore2} from "src/tabsets/stores/tabsStore2";
 import {useTabsetsStore} from "src/tabsets/stores/tabsetsStore";
 import {useFeaturesStore} from "src/features/stores/featuresStore";
 import {SidePanelViews} from "src/models/SidePanelViews";
+import NavTabsetsListWidgetNonBex from "src/tabsets/widgets/NavTabsetsListWidgetNonBex.vue";
 
 const {inBexMode} = useUtils()
 
