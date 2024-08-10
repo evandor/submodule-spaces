@@ -138,7 +138,7 @@ import {Tabset, TabsetStatus, TabsetType} from "src/tabsets/models/Tabset";
 import {useRouter} from "vue-router";
 import {useUtils} from "src/core/services/Utils";
 import {uid, useQuasar} from "quasar";
-import {FeatureIdent} from "src/models/FeatureIdent";
+import {FeatureIdent} from "src/app/models/FeatureIdent";
 import {useSpacesStore} from "src/spaces/stores/spacesStore";
 import NewSpaceDialog from "src/spaces/dialogues/NewSpaceDialog.vue";
 import NavigationService from "src/services/NavigationService";
