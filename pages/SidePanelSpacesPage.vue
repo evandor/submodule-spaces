@@ -46,7 +46,7 @@
           <q-card>
             <q-card-section>
               <NavTabsetsListWidgetNonBex
-                :tabsets="tabsetsForSpaces.get(space.id) || []"
+                :tabsets="tabsetsForSpaces.get(space.id) as Tabset[] || []"
                 :spaceId="space.id"
                 :fromPanel="true"/>
             </q-card-section>
