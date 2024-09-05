@@ -14,7 +14,7 @@
 
       <q-list dense
               class="rounded-borders q-ma-none q-pa-none" :key="space.id"
-              v-for="(space,index) in sortedSpaces">
+              v-for="space in sortedSpaces">
 
         <q-expansion-item
           header-class="q-ma-none q-pa-none q-pr-md bg-grey-2"
@@ -132,7 +132,7 @@
 
 <script lang="ts" setup>
 
-import {onMounted, onUnmounted, ref, watch, watchEffect} from "vue";
+import {onMounted, onUnmounted, ref, watchEffect} from "vue";
 import _ from "lodash"
 import {Tabset, TabsetStatus, TabsetType} from "src/tabsets/models/Tabset";
 import {useRouter} from "vue-router";
@@ -170,7 +170,6 @@ const openTabs = ref<chrome.tabs.Tab[]>([])
 const currentTabset = ref<Tabset | undefined>(undefined)
 const currentChromeTab = ref<chrome.tabs.Tab | undefined>(undefined)
 const tabsetsForSpaces = ref<Map<string, Tabset[]>>(new Map())
-const hoveredSpace = ref<string | undefined>(undefined)
 const sortedSpaces = ref<Space[]>([])
 const randomKey = ref<string>(uid())
 

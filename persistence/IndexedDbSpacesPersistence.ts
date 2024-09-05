@@ -1,10 +1,7 @@
-import {IDBPDatabase, openDB, deleteDB} from "idb";
-import _ from "lodash";
+import {IDBPDatabase, openDB} from "idb";
 import SpacesPersistence from "src/spaces/persistence/SpacesPersistence";
 import {Space} from "src/spaces/models/Space";
 import {useSpacesStore} from "src/spaces/stores/spacesStore";
-import {Tabset} from "src/tabsets/models/Tabset";
-import {useTabsetsStore} from "src/tabsets/stores/tabsetsStore";
 
 class IndexedDbSpacesPersistence implements SpacesPersistence {
 
