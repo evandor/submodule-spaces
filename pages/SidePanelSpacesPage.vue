@@ -1,5 +1,5 @@
 <template>
-
+  <!-- SidePanelSpacesPage -->
   <q-page style="padding-top: 50px">
 
     <div class="q-ma-none q-pa-none">
@@ -7,8 +7,10 @@
       <InfoMessageWidget
         :probability="1"
         ident="sidePanelSpacesPage_overview">
-        <b>Spaces</b> are a way to <b>organize your tabsets</b> if you have many. A Space is a
-        collection of tabsets, and <b>each tabset can be assigned to multiple Spaces</b>.
+        Too many tabsets? Use <b>Spaces</b>!
+        <br><br>
+        A Space is a collection of tabsets, and <b>each tabset can be assigned to multiple Spaces</b>.
+        <br>
         Deleting a Space does not delete any associated tabsets.
       </InfoMessageWidget>
 
@@ -62,17 +64,17 @@
         <q-separator class="q-mb-md" v-if="sortedSpaces.length > 1 && tabsetsWithoutSpaces().length > 0"/>
 
         <q-expansion-item dense
-                          v-if="tabsetsWithoutSpaces().length > 0"
+                          v-if="useSpacesStore().spaces.size > 0 && tabsetsWithoutSpaces().length > 0"
                           expand-separator
                           label="Unassigned Tabsets"
                           :caption="tabsetsWithoutSpaces().length + ' tabset(s)'">
 
-          <InfoMessageWidget v-if="useSpacesStore().spaces.size === 0"
-                             :probability="1"
-                             ident="sidePanelSpacesPage_unassignedTabsets">
-            Start by creating a new Space by clicking on the plus sign and
-            add tabsets to it.
-          </InfoMessageWidget>
+<!--          <InfoMessageWidget v-if="useSpacesStore().spaces.size === 0"-->
+<!--                             :probability="1"-->
+<!--                             ident="sidePanelSpacesPage_unassignedTabsets">-->
+<!--            Start by creating a new Space by clicking on the plus sign and-->
+<!--            add tabsets to it.-->
+<!--          </InfoMessageWidget>-->
 
           <q-card>
             <q-card-section>
@@ -103,6 +105,7 @@
         </template>
         <template v-slot:iconsRight>
           <q-btn
+            v-if="useSpacesStore().spaces.size > 0"
             icon="more_horiz"
             color="primary"
             flat
