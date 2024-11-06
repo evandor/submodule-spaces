@@ -13,7 +13,7 @@
         <br>
         Deleting a Space does not delete any associated tabsets.
       </InfoMessageWidget>
-
+***
       <q-list dense
               class="rounded-borders q-ma-none q-pa-none" :key="space.id"
               v-for="(space,index) in sortedSpaces">
