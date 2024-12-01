@@ -91,7 +91,7 @@
     <!-- place QPageSticky at end of page -->
     <q-page-sticky expand position="top" class="darkInDarkMode brightInBrightMode">
 
-      <FirstToolbarHelper
+      <FirstToolbarHelper2
         @was-clicked="useUiStore().sidePanelSetActiveView(SidePanelViews.MAIN)"
         :show-back-button="true">
         <template v-slot:title>
@@ -125,7 +125,7 @@
 
 
         </template>
-      </FirstToolbarHelper>
+      </FirstToolbarHelper2>
 
     </q-page-sticky>
 
@@ -148,7 +148,7 @@ import NavigationService from "src/services/NavigationService";
 import NewTabsetDialog from "src/tabsets/dialogues/NewTabsetDialog.vue";
 import {useUiStore} from "src/ui/stores/uiStore";
 import InfoMessageWidget from "src/ui/widgets/InfoMessageWidget.vue";
-import FirstToolbarHelper from "pages/sidepanel/helper/FirstToolbarHelper.vue";
+import FirstToolbarHelper2 from "pages/sidepanel/helper/FirstToolbarHelper2.vue";
 import {useWindowsStore} from "src/windows/stores/windowsStore";
 import Analytics from "src/core/utils/google-analytics";
 import {Space} from "src/spaces/models/Space";
