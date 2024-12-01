@@ -158,6 +158,7 @@ import {useTabsStore2} from "src/tabsets/stores/tabsStore2";
 import {useTabsetsStore} from "src/tabsets/stores/tabsetsStore";
 import {useFeaturesStore} from "src/features/stores/featuresStore";
 import NavTabsetsListWidgetNonBex from "src/tabsets/widgets/NavTabsetsListWidgetNonBex.vue";
+import {SidePanelViews} from "src/app/models/SidePanelViews.ts";
 
 const {inBexMode} = useUtils()
 
