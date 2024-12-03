@@ -1,11 +1,10 @@
 import {defineStore} from 'pinia';
 import _ from 'lodash'
-import {computed, ref, watch, watchEffect} from "vue";
+import {computed, ref, watch} from "vue";
 import {Space} from "src/spaces/models/Space";
 import {LocalStorage, uid} from "quasar";
 import throttledQueue from "throttled-queue";
 import SpacesPersistence from "src/spaces/persistence/SpacesPersistence";
-import {useDB} from "src/services/usePersistenceService";
 
 /**
  * a pinia store for "Spaces".
