@@ -69,6 +69,7 @@ import {useTabsetService} from "src/tabsets/services/TabsetService2";
 import Analytics from "src/core/utils/google-analytics";
 import {useUtils} from "src/core/services/Utils";
 import {useTabsetsStore} from "src/tabsets/stores/tabsetsStore";
+import {useTabsetsUiStore} from "src/tabsets/stores/tabsetsUiStore";
 
 const spacesStore = useSpacesStore()
 const checked = ref<boolean[][]>([[]])
@@ -161,6 +162,7 @@ const updateSpaces = (spaceIndex: number, tabsetIndex: number) => {
     const i = tabset.spaces.indexOf(space.id)
     console.log("found index", i)
     if (i >= 0) {
+      useTabsetsUiStore().clearFromLastUsedTabsets(space.id, tabset.id)
       tabset.spaces.splice(i, 1)
     }
   }

@@ -15,6 +15,8 @@ interface SpacesPersistence {
 
   compactDb(): Promise<any>
 
+  clear(name: string): void
+
 }
 
 export default SpacesPersistence
