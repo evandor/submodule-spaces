@@ -41,6 +41,10 @@ class IndexedDbSpacesPersistence implements SpacesPersistence {
     return Promise.resolve(undefined);
   }
 
+  clear(name: string) {
+    this.db.clear(name).catch((e) => console.warn(e))
+  }
+
   async deleteSpace(spaceId: string) {
     return this.db.delete(this.STORE_IDENT, spaceId)
   }

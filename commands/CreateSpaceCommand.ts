@@ -1,8 +1,9 @@
 import Command from "src/core/domain/Command";
 import {ExecutionResult} from "src/core/domain/ExecutionResult";
 import {useSpacesStore} from "src/spaces/stores/spacesStore";
+import {Space} from "src/spaces/models/Space";
 
-export class CreateSpaceCommand implements Command<string> {
+export class CreateSpaceCommand implements Command<Space> {
 
   constructor(
     public newSpaceName: string
@@ -11,8 +12,8 @@ export class CreateSpaceCommand implements Command<string> {
 
   async execute(): Promise<ExecutionResult<string>> {
     try {
-      await useSpacesStore().createSpace(this.newSpaceName)
-      return Promise.resolve(new ExecutionResult<string>("done", 'New Space ' + this.newSpaceName + ' created successfully'))
+      const space: Space = await useSpacesStore().createSpace(this.newSpaceName)
+      return Promise.resolve(new ExecutionResult<Space>(space, 'New Space ' + this.newSpaceName + ' created successfully'))
     } catch (err) {
       return Promise.reject(err)
     }

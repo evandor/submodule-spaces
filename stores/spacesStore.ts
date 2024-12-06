@@ -61,7 +61,7 @@ export const useSpacesStore = defineStore('spaces', () => {
     // TODO remove after version 0.4.12
     await storage.migrate()
 
-    console.debug(" ...initialized spaces: Store",'✅')
+    console.debug(" ...initialized spaces: Store", '✅')
     await storage.loadSpaces()
   }
 
@@ -95,7 +95,7 @@ export const useSpacesStore = defineStore('spaces', () => {
   const nameExists = computed(() => {
     return (searchName: string) => {
       //console.log("checking for existence --- ", searchName)
-      return _.find([...spaces.value.values()], (s:Space) => {
+      return _.find([...spaces.value.values()], (s: Space) => {
         //console.log("comparing", s.label, searchName?.trim(), s.label === searchName?.trim())
         return s.label === searchName?.trim()
       })
@@ -108,9 +108,9 @@ export const useSpacesStore = defineStore('spaces', () => {
   /**
    * create a new space; checks if label already exists
    *
-   * @param s
+   * @param label
    */
-  function createSpace(label: string): Promise<any> {
+  async function createSpace(label: string): Promise<Space> {
     const spaceId = uid()
     console.log("adding space", spaceId, label)
     if (nameExists.value(label)) {
@@ -118,7 +118,8 @@ export const useSpacesStore = defineStore('spaces', () => {
     }
     const newSpace = new Space(spaceId, label)
     spaces.value.set(spaceId, newSpace)
-    return storage.addSpace(newSpace)
+    await storage.addSpace(newSpace)
+    return Promise.resolve(newSpace)
   }
 
   /**
