@@ -158,7 +158,7 @@ import {useTabsStore2} from "src/tabsets/stores/tabsStore2";
 import {useTabsetsStore} from "src/tabsets/stores/tabsetsStore";
 import {useFeaturesStore} from "src/features/stores/featuresStore";
 import NavTabsetsListWidgetNonBex from "src/tabsets/widgets/NavTabsetsListWidgetNonBex.vue";
-import {SidePanelViews} from "src/app/models/SidePanelViews.ts";
+import {SidePanelViews} from "src/app/models/SidePanelViews";
 
 const {inBexMode} = useUtils()
 
@@ -278,7 +278,7 @@ watchEffect(() => {
       }
     })
     if (tabsetNameOptions.value.length > 0) {
-      tabsetName.value = tabsetNameOptions.value[0]
+      tabsetName.value = tabsetNameOptions.value[0]!
     }
   }
 })

@@ -60,6 +60,9 @@ class FirestoreSpacesPersistence implements SpacesPersistence {
     // no op
   }
 
+  clear(name: string): void {
+  }
+
 
 }
 

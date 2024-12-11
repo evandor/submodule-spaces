@@ -20,7 +20,7 @@
               <q-badge color="blue" :label="props.value"/>
             </template>
             <template v-else>
-              <q-checkbox v-model="checked[props.col.spaceIndex][props.rowIndex]"
+              <q-checkbox v-model="checked[props.col.spaceIndex]![props.rowIndex]"
                           @click="updateSpaces(props.col.spaceIndex,props.rowIndex)"/>
             </template>
           </q-td>
@@ -146,11 +146,11 @@ const initialPagination = {
 }
 
 const updateSpaces = (spaceIndex: number, tabsetIndex: number) => {
-  console.log("updated", checked.value[spaceIndex][tabsetIndex], spaceIndex, tabsetIndex)
+  console.log("updated", checked.value[spaceIndex]![tabsetIndex], spaceIndex, tabsetIndex)
 
   const tabset: Tabset = sortedTabsets.value[tabsetIndex] as Tabset
-  const space: Space = sortedSpaces.value[spaceIndex]
-  const set: boolean = checked.value[spaceIndex][tabsetIndex]
+  const space: Space = sortedSpaces.value[spaceIndex]!
+  const set: boolean = checked.value[spaceIndex]![tabsetIndex]!
 
   console.log("set", set)
   console.log("tabset", tabset, tabset.spaces)
