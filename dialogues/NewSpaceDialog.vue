@@ -45,10 +45,7 @@
 <script lang="ts" setup>
 
 import {computed, ref, watchEffect} from "vue";
-import {uid, useQuasar} from "quasar";
-import {useRouter} from "vue-router";
-
-import {useDialogPluginComponent} from 'quasar'
+import {useDialogPluginComponent} from "quasar";
 import {STRIP_CHARS_IN_USER_INPUT} from "boot/constants";
 import {useSpacesStore} from "src/spaces/stores/spacesStore";
 import {useCommandExecutor} from "src/core/services/CommandExecutor";
@@ -58,6 +55,7 @@ defineEmits([
   ...useDialogPluginComponent.emits
 ])
 
+// @ts-ignore
 const props = defineProps({
   fromPanel: {type: Boolean, default: false}
 })
@@ -65,8 +63,6 @@ const props = defineProps({
 const {dialogRef, onDialogHide, onDialogCancel} = useDialogPluginComponent()
 
 const spacesStore = useSpacesStore()
-const router = useRouter()
-const $q = useQuasar()
 
 const newSpaceName = ref('')
 const newSpaceNameExists = ref(false)

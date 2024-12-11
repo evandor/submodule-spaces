@@ -158,6 +158,7 @@ import {useTabsStore2} from "src/tabsets/stores/tabsStore2";
 import {useTabsetsStore} from "src/tabsets/stores/tabsetsStore";
 import {useFeaturesStore} from "src/features/stores/featuresStore";
 import NavTabsetsListWidgetNonBex from "src/tabsets/widgets/NavTabsetsListWidgetNonBex.vue";
+import {SidePanelViews} from "src/app/models/SidePanelViews";
 
 const {inBexMode} = useUtils()
 
@@ -172,7 +173,6 @@ const openTabs = ref<chrome.tabs.Tab[]>([])
 const currentTabset = ref<Tabset | undefined>(undefined)
 const currentChromeTab = ref<chrome.tabs.Tab | undefined>(undefined)
 const tabsetsForSpaces = ref<Map<string, Tabset[]>>(new Map())
-const hoveredSpace = ref<string | undefined>(undefined)
 const sortedSpaces = ref<Space[]>([])
 const randomKey = ref<string>(uid())
 
@@ -278,7 +278,7 @@ watchEffect(() => {
       }
     })
     if (tabsetNameOptions.value.length > 0) {
-      tabsetName.value = tabsetNameOptions.value[0]
+      tabsetName.value = tabsetNameOptions.value[0]!
     }
   }
 })
