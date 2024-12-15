@@ -1,4 +1,4 @@
-import {STRIP_CHARS_IN_USER_INPUT} from "boot/constants";
+import {STRIP_CHARS_IN_USER_INPUT} from "src/boot/constants";
 import {TABSET_NAME_MAX_LENGTH} from "src/tabsets/models/Tabset";
 
 export class Space {
