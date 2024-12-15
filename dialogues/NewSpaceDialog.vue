@@ -46,7 +46,7 @@
 
 import {computed, ref, watchEffect} from "vue";
 import {useDialogPluginComponent} from "quasar";
-import {STRIP_CHARS_IN_USER_INPUT} from "boot/constants";
+import {STRIP_CHARS_IN_USER_INPUT} from "src/boot/constants";
 import {useSpacesStore} from "src/spaces/stores/spacesStore";
 import {useCommandExecutor} from "src/core/services/CommandExecutor";
 import {CreateSpaceCommand} from "src/spaces/commands/CreateSpaceCommand";
