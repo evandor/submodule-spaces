@@ -55,7 +55,6 @@ defineEmits([
   ...useDialogPluginComponent.emits
 ])
 
-// @ts-expect-error
 const props = defineProps({
   fromPanel: {type: Boolean, default: false}
 })
