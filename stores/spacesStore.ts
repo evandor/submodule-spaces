@@ -1,10 +1,10 @@
-import {defineStore} from 'pinia';
+import { defineStore } from 'pinia'
 import _ from 'lodash'
-import {computed, ref, watch} from "vue";
-import {Space} from "src/spaces/models/Space";
-import {LocalStorage, uid} from "quasar";
-import throttledQueue from "throttled-queue";
-import SpacesPersistence from "src/spaces/persistence/SpacesPersistence";
+import { computed, ref, watch } from 'vue'
+import { Space } from 'src/spaces/models/Space'
+import { LocalStorage, uid } from 'quasar'
+import throttledQueue from 'throttled-queue'
+import SpacesPersistence from 'src/spaces/persistence/SpacesPersistence'
 
 /**
  * a pinia store for "Spaces".
@@ -14,7 +14,6 @@ import SpacesPersistence from "src/spaces/persistence/SpacesPersistence";
  */
 
 export const useSpacesStore = defineStore('spaces', () => {
-
   /**
    * A Map of all spaces identified by their ids
    */
@@ -29,7 +28,7 @@ export const useSpacesStore = defineStore('spaces', () => {
   /**
    * the value for the current space id from the localStorage (or null)
    */
-  const currentFromLocalStorage = LocalStorage.getItem("currentSpace")
+  const currentFromLocalStorage = LocalStorage.getItem('currentSpace')
 
   /**
    * the (internal) storage for this store to use
@@ -43,7 +42,6 @@ export const useSpacesStore = defineStore('spaces', () => {
    * @param ps a persistence storage
    */
   async function initialize(p: SpacesPersistence) {
-
     // if (!isAuthenticated) {
     //   console.debug("%not authenticated", "font-weight:bold")
     //   storage = useDB(undefined).spacesIndexedDb
@@ -61,7 +59,7 @@ export const useSpacesStore = defineStore('spaces', () => {
     // TODO remove after version 0.4.12
     await storage.migrate()
 
-    console.debug(" ...initialized spaces: Store", '✅')
+    console.debug(' ...initialized spaces: Store', '✅')
     await storage.loadSpaces()
   }
 
@@ -69,7 +67,7 @@ export const useSpacesStore = defineStore('spaces', () => {
    * reloads store
    */
   async function reload() {
-    console.debug("reloading spacesStore")
+    console.debug('reloading spacesStore')
     await storage.loadSpaces()
   }
 
@@ -82,11 +80,12 @@ export const useSpacesStore = defineStore('spaces', () => {
     space,
     (spaceVal: Space) => {
       if (spaceVal && spaceVal['id']) {
-        localStorage.setItem("currentSpace", spaceVal['id'])
+        localStorage.setItem('currentSpace', spaceVal['id'])
       } else {
-        localStorage.removeItem("currentSpace")
+        localStorage.removeItem('currentSpace')
       }
-    }, {deep: true}
+    },
+    { deep: true },
   )
 
   /**
@@ -112,7 +111,7 @@ export const useSpacesStore = defineStore('spaces', () => {
    */
   async function createSpace(label: string): Promise<Space> {
     const spaceId = uid()
-    console.log("adding space", spaceId, label)
+    console.log('adding space', spaceId, label)
     if (nameExists.value(label)) {
       return Promise.reject(`name '${label}'does already exist`)
     }
@@ -133,7 +132,7 @@ export const useSpacesStore = defineStore('spaces', () => {
       //console.log("spaces:", [...spaces.value.values()].length)
       if (nameExists.value(s.label)) {
         const msg = `name '${s.label}' does already exist`
-        console.log("issue during adding spaces: ", msg)
+        console.log('issue during adding spaces: ', msg)
         return Promise.resolve()
       }
       spaces.value.set(s.id, s)
@@ -151,7 +150,7 @@ export const useSpacesStore = defineStore('spaces', () => {
   }
 
   function setSpace(spaceId: string | undefined) {
-    console.log("setting space to ", spaceId)
+    console.log('setting space to ', spaceId)
     space.value = null as unknown as Space
     if (spaceId) {
       const theSpace: Space | undefined = spaces.value.get(spaceId)
@@ -162,10 +161,10 @@ export const useSpacesStore = defineStore('spaces', () => {
   }
 
   function deleteById(spaceId: string) {
-    console.log("deleting space", spaceId)
+    console.log('deleting space', spaceId)
     spaces.value.delete(spaceId)
     if (spaceId === currentFromLocalStorage) {
-      console.log("setting current space to null")
+      console.log('setting current space to null')
       space.value = null as unknown as Space
     }
     storage.deleteSpace(spaceId)
@@ -181,6 +180,6 @@ export const useSpacesStore = defineStore('spaces', () => {
     addSpace,
     putSpace,
     setSpace,
-    deleteById
+    deleteById,
   }
 })

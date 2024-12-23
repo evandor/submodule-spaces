@@ -1,5 +1,5 @@
-import {STRIP_CHARS_IN_USER_INPUT} from "src/boot/constants";
-import {TABSET_NAME_MAX_LENGTH} from "src/tabsets/models/Tabset";
+import { STRIP_CHARS_IN_USER_INPUT } from 'src/boot/constants'
+import { TABSET_NAME_MAX_LENGTH } from 'src/tabsets/models/Tabset'
 
 export class Space {
   _id: string
@@ -7,8 +7,11 @@ export class Space {
   updated: number
   description: string
 
-  constructor(public id: string, public label: string) {
-    this._id = "space" + new Date().toJSON()
+  constructor(
+    public id: string,
+    public label: string,
+  ) {
+    this._id = 'space' + new Date().toJSON()
     this.created = new Date().getTime()
     this.updated = new Date().getTime()
     this.description = ''
@@ -23,5 +26,5 @@ export class Space {
 
   static labelIsvalid = (val: string) => !STRIP_CHARS_IN_USER_INPUT.test(val)
 
-  static labelIsShortEnough = (val: string) => val ? val.length <= TABSET_NAME_MAX_LENGTH : true
+  static labelIsShortEnough = (val: string) => (val ? val.length <= TABSET_NAME_MAX_LENGTH : true)
 }
