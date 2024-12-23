@@ -5,9 +5,9 @@
         <div class="text-h6">Add new Space</div>
       </q-card-section>
       <q-card-section>
-        <div class="text-body">A 'space' is a way to organize your tabsets. You can add tabsets to one or more spaces
-          and select
-          which space you want to be working on.
+        <div class="text-body">
+          A 'space' is a way to organize your tabsets. You can add tabsets to one or more spaces and
+          select which space you want to be working on.
         </div>
       </q-card-section>
       <q-card-section>
@@ -16,50 +16,51 @@
 
       <q-card-section class="q-pt-none">
         <div class="text-body">New Space's name:</div>
-        <q-input v-model="newSpaceName"
-                 class="q-mb-none q-pb-none"
-                 dense autofocus
-                 error-message="Please do not use special Characters, maximum length is 32"
-                 :error="!newSpaceNameIsValid"
-                 data-testid="newSpaceName"
-                 @keydown.enter="createNewSpace()"/>
-        <div class="text-caption text-negative q-mt-none q-pt-none">{{ newSpaceDialogWarning() }}</div>
-
+        <q-input
+          v-model="newSpaceName"
+          class="q-mb-none q-pb-none"
+          dense
+          autofocus
+          error-message="Please do not use special Characters, maximum length is 32"
+          :error="!newSpaceNameIsValid"
+          data-testid="newSpaceName"
+          @keydown.enter="createNewSpace()"
+        />
+        <div class="text-caption text-negative q-mt-none q-pt-none">
+          {{ newSpaceDialogWarning() }}
+        </div>
       </q-card-section>
 
       <q-card-actions align="right" class="text-primary">
-        <q-btn flat label="Cancel" @click="onDialogCancel"/>
-        <q-btn flat
-               data-testid="newSpaceNameSubmit"
-               label="Create new Space"
-               :disable="newSpaceName.trim().length === 0 || newSpaceDialogWarning().length > 0" v-close-popup
-               @click="createNewSpace()"/>
+        <q-btn flat label="Cancel" @click="onDialogCancel" />
+        <q-btn
+          flat
+          data-testid="newSpaceNameSubmit"
+          label="Create new Space"
+          :disable="newSpaceName.trim().length === 0 || newSpaceDialogWarning().length > 0"
+          v-close-popup
+          @click="createNewSpace()"
+        />
       </q-card-actions>
-
-
     </q-card>
   </q-dialog>
-
 </template>
 
 <script lang="ts" setup>
+import { computed, ref, watchEffect } from 'vue'
+import { useDialogPluginComponent } from 'quasar'
+import { STRIP_CHARS_IN_USER_INPUT } from 'src/boot/constants'
+import { useSpacesStore } from 'src/spaces/stores/spacesStore'
+import { useCommandExecutor } from 'src/core/services/CommandExecutor'
+import { CreateSpaceCommand } from 'src/spaces/commands/CreateSpaceCommand'
 
-import {computed, ref, watchEffect} from "vue";
-import {useDialogPluginComponent} from "quasar";
-import {STRIP_CHARS_IN_USER_INPUT} from "src/boot/constants";
-import {useSpacesStore} from "src/spaces/stores/spacesStore";
-import {useCommandExecutor} from "src/core/services/CommandExecutor";
-import {CreateSpaceCommand} from "src/spaces/commands/CreateSpaceCommand";
-
-defineEmits([
-  ...useDialogPluginComponent.emits
-])
+defineEmits([...useDialogPluginComponent.emits])
 
 const props = defineProps({
-  fromPanel: {type: Boolean, default: false}
+  fromPanel: { type: Boolean, default: false },
 })
 
-const {dialogRef, onDialogHide, onDialogCancel} = useDialogPluginComponent()
+const { dialogRef, onDialogHide, onDialogCancel } = useDialogPluginComponent()
 
 const spacesStore = useSpacesStore()
 
@@ -72,7 +73,7 @@ const newSpaceNameIsValid = computed(() => {
 })
 
 watchEffect(() => {
-    newSpaceNameExists.value = !!spacesStore.nameExists(newSpaceName.value);
+  newSpaceNameExists.value = !!spacesStore.nameExists(newSpaceName.value)
 })
 
 const createNewSpace = () => {
@@ -80,9 +81,8 @@ const createNewSpace = () => {
 }
 
 const newSpaceDialogWarning = () => {
-  return (!hideWarning.value && spacesStore.nameExists(newSpaceName.value)) ?
-    "Space's name already exists!" : ""
+  return !hideWarning.value && spacesStore.nameExists(newSpaceName.value)
+    ? "Space's name already exists!"
+    : ''
 }
-
-
 </script>
