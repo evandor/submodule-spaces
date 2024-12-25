@@ -1,6 +1,6 @@
 import { IDBPDatabase, openDB } from 'idb'
-import SpacesPersistence from 'src/spaces/persistence/SpacesPersistence'
 import { Space } from 'src/spaces/models/Space'
+import SpacesPersistence from 'src/spaces/persistence/SpacesPersistence'
 import { useSpacesStore } from 'src/spaces/stores/spacesStore'
 
 class IndexedDbSpacesPersistence implements SpacesPersistence {

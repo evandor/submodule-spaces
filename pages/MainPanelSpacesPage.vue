@@ -58,16 +58,16 @@
 </template>
 
 <script lang="ts" setup>
-import { useSpacesStore } from 'src/spaces/stores/spacesStore'
-import { onMounted, ref, watchEffect } from 'vue'
 import _ from 'lodash'
+import { useUtils } from 'src/core/services/Utils'
+import Analytics from 'src/core/utils/google-analytics'
 import { Space } from 'src/spaces/models/Space'
+import { useSpacesStore } from 'src/spaces/stores/spacesStore'
 import { Tabset, TabsetStatus } from 'src/tabsets/models/Tabset'
 import { useTabsetService } from 'src/tabsets/services/TabsetService2'
-import Analytics from 'src/core/utils/google-analytics'
-import { useUtils } from 'src/core/services/Utils'
 import { useTabsetsStore } from 'src/tabsets/stores/tabsetsStore'
 import { useTabsetsUiStore } from 'src/tabsets/stores/tabsetsUiStore'
+import { onMounted, ref, watchEffect } from 'vue'
 
 const spacesStore = useSpacesStore()
 const checked = ref<boolean[][]>([[]])

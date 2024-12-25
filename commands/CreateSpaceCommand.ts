@@ -1,7 +1,7 @@
 import Command from 'src/core/domain/Command'
 import { ExecutionResult } from 'src/core/domain/ExecutionResult'
-import { useSpacesStore } from 'src/spaces/stores/spacesStore'
 import { Space } from 'src/spaces/models/Space'
+import { useSpacesStore } from 'src/spaces/stores/spacesStore'
 
 export class CreateSpaceCommand implements Command<Space> {
   constructor(public newSpaceName: string) {}

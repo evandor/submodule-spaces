@@ -1,10 +1,10 @@
-import { defineStore } from 'pinia'
 import _ from 'lodash'
-import { computed, ref, watch } from 'vue'
-import { Space } from 'src/spaces/models/Space'
+import { defineStore } from 'pinia'
 import { LocalStorage, uid } from 'quasar'
-import throttledQueue from 'throttled-queue'
+import { Space } from 'src/spaces/models/Space'
 import SpacesPersistence from 'src/spaces/persistence/SpacesPersistence'
+import throttledQueue from 'throttled-queue'
+import { computed, ref, watch } from 'vue'
 
 /**
  * a pinia store for "Spaces".
