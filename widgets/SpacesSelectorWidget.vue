@@ -52,14 +52,14 @@
 </template>
 
 <script lang="ts" setup>
+import _ from 'lodash'
+import { useQuasar } from 'quasar'
+import NewSpaceDialog from 'src/spaces/dialogues/NewSpaceDialog.vue'
+import { Space } from 'src/spaces/models/Space'
+import { useSpacesStore } from 'src/spaces/stores/spacesStore'
+import { useTabsetsStore } from 'src/tabsets/stores/tabsetsStore'
 import { ref, watchEffect } from 'vue'
 import { useRouter } from 'vue-router'
-import { useSpacesStore } from 'src/spaces/stores/spacesStore'
-import NewSpaceDialog from 'src/spaces/dialogues/NewSpaceDialog.vue'
-import { useQuasar } from 'quasar'
-import _ from 'lodash'
-import { Space } from 'src/spaces/models/Space'
-import { useTabsetsStore } from 'src/tabsets/stores/tabsetsStore'
 
 const spacesStore = useSpacesStore()
 const router = useRouter()

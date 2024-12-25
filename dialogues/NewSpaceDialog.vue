@@ -47,12 +47,12 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, watchEffect } from 'vue'
 import { useDialogPluginComponent } from 'quasar'
 import { STRIP_CHARS_IN_USER_INPUT } from 'src/boot/constants'
-import { useSpacesStore } from 'src/spaces/stores/spacesStore'
 import { useCommandExecutor } from 'src/core/services/CommandExecutor'
 import { CreateSpaceCommand } from 'src/spaces/commands/CreateSpaceCommand'
+import { useSpacesStore } from 'src/spaces/stores/spacesStore'
+import { computed, ref, watchEffect } from 'vue'
 
 defineEmits([...useDialogPluginComponent.emits])
 
