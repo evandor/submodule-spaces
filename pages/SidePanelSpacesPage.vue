@@ -10,25 +10,18 @@
         Deleting a Space does not delete any associated tabsets.
       </InfoMessageWidget>
 
-      <q-list
-        dense
-        class="rounded-borders q-ma-none q-pa-none"
-        :key="space.id"
-        v-for="space in sortedSpaces"
-      >
+      <q-list dense class="rounded-borders q-ma-none q-pa-none" :key="space.id" v-for="space in sortedSpaces">
         <q-expansion-item
           header-class="q-ma-none q-pa-none q-pr-md bg-grey-2"
           :header-style="headerStyle(space)"
           dense-toggle
-          switch-toggle-side
-        >
+          switch-toggle-side>
           <template v-slot:header>
             <SpaceHeader
               :key="randomKey"
               :caption="headerCaption(space.id)"
               :spaceLabel="space.label"
-              :spaceId="space.id"
-            />
+              :spaceId="space.id" />
           </template>
 
           <div class="row">
@@ -38,8 +31,7 @@
                 name="o_add"
                 size="16px"
                 color="primary"
-                @click="openNewTabsetDialog(space.id)"
-              >
+                @click="openNewTabsetDialog(space.id)">
                 <q-tooltip class="tooltip">Add Tabset</q-tooltip>
               </q-icon>
             </div>
@@ -49,26 +41,21 @@
               <NavTabsetsListWidgetNonBex
                 :tabsets="(tabsetsForSpaces.get(space.id) as Tabset[]) || []"
                 :spaceId="space.id"
-                :fromPanel="true"
-              />
+                :fromPanel="true" />
             </q-card-section>
           </q-card>
         </q-expansion-item>
       </q-list>
 
       <q-list dense class="rounded-borders q-ma-none q-pa-none">
-        <q-separator
-          class="q-mb-md"
-          v-if="sortedSpaces.length > 1 && tabsetsWithoutSpaces().length > 0"
-        />
+        <q-separator class="q-mb-md" v-if="sortedSpaces.length > 1 && tabsetsWithoutSpaces().length > 0" />
 
         <q-expansion-item
           dense
           v-if="useSpacesStore().spaces.size > 0 && tabsetsWithoutSpaces().length > 0"
           expand-separator
           label="Unassigned Tabsets"
-          :caption="tabsetsWithoutSpaces().length + ' tabset(s)'"
-        >
+          :caption="tabsetsWithoutSpaces().length + ' tabset(s)'">
           <!--          <InfoMessageWidget v-if="useSpacesStore().spaces.size === 0"-->
           <!--                             :probability="1"-->
           <!--                             ident="sidePanelSpacesPage_unassignedTabsets">-->
@@ -89,42 +76,39 @@
     <q-page-sticky expand position="top" class="darkInDarkMode brightInBrightMode">
       <FirstToolbarHelper2
         @was-clicked="useUiStore().sidePanelSetActiveView(SidePanelViews.MAIN)"
-        :show-back-button="true"
-      >
+        :show-back-button="true">
         <template v-slot:title>
-          <!--          <q-icon name="o_space_dashboard" color="primary" size="18px"/>-->
-
           <q-btn
             flat
             color="black"
             @click="router.push('/sidepanel')"
             no-caps
-            :label="useFeaturesStore().hasFeature(FeatureIdent.SPACES) ? 'Spaces' : 'Tabset List'"
-          />
+            :label="useFeaturesStore().hasFeature(FeatureIdent.SPACES) ? 'Spaces' : 'Tabset List'" />
           <q-tooltip :delay="1000" class="tooltip">Click to return to Tabsets View</q-tooltip>
         </template>
-        <template v-slot:iconsRight>
-          <q-btn
-            v-if="useSpacesStore().spaces.size > 0"
-            icon="more_horiz"
-            color="primary"
-            flat
-            class="q-ma-none q-pa-xs q-mr-sm cursor-pointer"
-            style="max-width: 20px"
-            size="10px"
-            @click="manageSpaces()"
-          >
-            <q-tooltip class="tooltip">Manage Spaces</q-tooltip>
-          </q-btn>
 
-          <q-btn
-            outline
-            label="New Space"
-            color="primary"
-            size="sm"
-            @click="addSpace()"
-            class="q-ma-none q-px-sm q-py-none"
-          />
+        <template v-slot:iconsRight>
+          <div class="q-mt-sm q-ma-none q-qa-none q-pr-sm">
+            <q-btn
+              v-if="useSpacesStore().spaces.size > 0"
+              icon="more_horiz"
+              color="primary"
+              flat
+              class="q-ma-none q-pa-xs q-mr-sm cursor-pointer"
+              style="max-width: 20px"
+              size="10px"
+              @click="manageSpaces()">
+              <q-tooltip class="tooltip">Manage Spaces</q-tooltip>
+            </q-btn>
+
+            <q-btn
+              outline
+              label="New Space"
+              color="primary"
+              size="sm"
+              @click="addSpace()"
+              class="q-ma-none q-px-sm q-py-none" />
+          </div>
         </template>
       </FirstToolbarHelper2>
     </q-page-sticky>
@@ -277,15 +261,12 @@ watchEffect(() => {
 
 watchEffect(() => {
   if (useTabsetsStore().tabsets) {
-    tabsetNameOptions.value = _.map(
-      [...useTabsetsStore().tabsets.values()] as Tabset[],
-      (ts: Tabset) => {
-        return {
-          label: ts.name,
-          value: ts.id,
-        }
-      },
-    )
+    tabsetNameOptions.value = _.map([...useTabsetsStore().tabsets.values()] as Tabset[], (ts: Tabset) => {
+      return {
+        label: ts.name,
+        value: ts.id,
+      }
+    })
     if (tabsetNameOptions.value.length > 0) {
       tabsetName.value = tabsetNameOptions.value[0]!
     }
