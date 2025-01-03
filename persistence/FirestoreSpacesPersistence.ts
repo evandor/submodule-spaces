@@ -10,13 +10,7 @@ import { useAuthStore } from 'stores/authStore'
 const STORE_IDENT = 'spaces'
 
 function spaceDoc(spaceId: string) {
-  return doc(
-    FirebaseServices.getFirestore(),
-    'users',
-    useAuthStore().user.uid,
-    STORE_IDENT,
-    spaceId,
-  )
+  return doc(FirebaseServices.getFirestore(), 'users', useAuthStore().user.uid, STORE_IDENT, spaceId)
 }
 
 function spacesCollection() {

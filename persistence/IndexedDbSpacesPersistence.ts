@@ -64,9 +64,7 @@ class IndexedDbSpacesPersistence implements SpacesPersistence {
     }
     const oldSpaces = await oldDB.getAll('spaces')
     for (const oldSpace of oldSpaces) {
-      const optionalSpaceInNewDb = (await this.db.get(this.STORE_IDENT, oldSpace.id)) as
-        | Space
-        | undefined
+      const optionalSpaceInNewDb = (await this.db.get(this.STORE_IDENT, oldSpace.id)) as Space | undefined
       if (!optionalSpaceInNewDb) {
         console.log('migrating old space', oldSpace.id, oldSpace.name)
         await this.db.add(this.STORE_IDENT, oldSpace, oldSpace.id)

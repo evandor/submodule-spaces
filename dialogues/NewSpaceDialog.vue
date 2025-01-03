@@ -6,8 +6,8 @@
       </q-card-section>
       <q-card-section>
         <div class="text-body">
-          A 'space' is a way to organize your tabsets. You can add tabsets to one or more spaces and
-          select which space you want to be working on.
+          A 'space' is a way to organize your tabsets. You can add tabsets to one or more spaces and select which space
+          you want to be working on.
         </div>
       </q-card-section>
       <q-card-section>
@@ -24,8 +24,7 @@
           error-message="Please do not use special Characters, maximum length is 32"
           :error="!newSpaceNameIsValid"
           data-testid="newSpaceName"
-          @keydown.enter="createNewSpace()"
-        />
+          @keydown.enter="createNewSpace()" />
         <div class="text-caption text-negative q-mt-none q-pt-none">
           {{ newSpaceDialogWarning() }}
         </div>
@@ -39,8 +38,7 @@
           label="Create new Space"
           :disable="newSpaceName.trim().length === 0 || newSpaceDialogWarning().length > 0"
           v-close-popup
-          @click="createNewSpace()"
-        />
+          @click="createNewSpace()" />
       </q-card-actions>
     </q-card>
   </q-dialog>
@@ -81,8 +79,6 @@ const createNewSpace = () => {
 }
 
 const newSpaceDialogWarning = () => {
-  return !hideWarning.value && spacesStore.nameExists(newSpaceName.value)
-    ? "Space's name already exists!"
-    : ''
+  return !hideWarning.value && spacesStore.nameExists(newSpaceName.value) ? "Space's name already exists!" : ''
 }
 </script>

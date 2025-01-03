@@ -1,11 +1,6 @@
 <template>
   <div class="cursor-pointer">
-    <q-badge
-      outline
-      class="q-mr-md q-mt-none q-mb-sm q-pt-sm q-pb-sm q-px-sm"
-      color="black"
-      :label="spacesLabel()"
-    >
+    <q-badge outline class="q-mr-md q-mt-none q-mb-sm q-pt-sm q-pb-sm q-px-sm" color="black" :label="spacesLabel()">
     </q-badge>
 
     <q-menu :offset="[0, 10]">
@@ -19,8 +14,7 @@
           :disable="space.id === spacesStore.space?.id"
           clickable
           v-close-popup
-          @click="switchSpace(space)"
-        >
+          @click="switchSpace(space)">
           <q-item-section>{{ space.label }}</q-item-section>
         </q-item>
 
@@ -42,8 +36,7 @@
           v-if="spacesOptions.length > 0 && !props.fromPanel"
           clickable
           v-close-popup
-          @click="router.push('/spaces')"
-        >
+          @click="router.push('/spaces')">
           <q-item-section>Manage Spaces</q-item-section>
         </q-item>
       </q-list>
