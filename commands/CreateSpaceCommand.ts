@@ -10,10 +10,7 @@ export class CreateSpaceCommand implements Command<Space> {
     try {
       const space: Space = await useSpacesStore().createSpace(this.newSpaceName)
       return Promise.resolve(
-        new ExecutionResult<Space>(
-          space,
-          'New Space ' + this.newSpaceName + ' created successfully',
-        ),
+        new ExecutionResult<Space>(space, 'New Space ' + this.newSpaceName + ' created successfully'),
       )
     } catch (err) {
       return Promise.reject(err)

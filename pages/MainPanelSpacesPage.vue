@@ -10,8 +10,7 @@
         :pagination="initialPagination"
         :rows="rows"
         :columns="spaces"
-        row-key="name"
-      >
+        row-key="name">
         <template v-slot:body-cell="props">
           <q-td :props="props">
             <template v-if="props.col.name === 'tabset'">
@@ -20,8 +19,7 @@
             <template v-else>
               <q-checkbox
                 v-model="checked[props.col.spaceIndex]![props.rowIndex]"
-                @click="updateSpaces(props.col.spaceIndex, props.rowIndex)"
-              />
+                @click="updateSpaces(props.col.spaceIndex, props.rowIndex)" />
             </template>
           </q-td>
         </template>
@@ -39,16 +37,10 @@
           dense
           emit-value
           map-options
-          options-dense
-        />
+          options-dense />
       </div>
       <div class="col-2">
-        <q-btn
-          class="q-ml-md"
-          label="Delete Space"
-          @click="deleteSpace()"
-          :disable="selectedSpace === ''"
-        />
+        <q-btn class="q-ml-md" label="Delete Space" @click="deleteSpace()" :disable="selectedSpace === ''" />
       </div>
       <div class="col text-right">
         <q-btn label="Close Window" color="primary" @click="closeWindow()" />
@@ -85,9 +77,7 @@ onMounted(() => {
 })
 
 watchEffect(() => {
-  sortedSpaces.value = _.sortBy([...spacesStore.spaces.values()] as Space[], [
-    (ts: Space) => ts.label.toLowerCase(),
-  ])
+  sortedSpaces.value = _.sortBy([...spacesStore.spaces.values()] as Space[], [(ts: Space) => ts.label.toLowerCase()])
 })
 
 watchEffect(() => {
@@ -109,9 +99,7 @@ watchEffect(() => {
   console.log('watching effect spaces')
   const spaceArray: boolean[][] = []
   rows.value = []
-  spaces.value = [
-    { name: 'tabset', align: 'left', label: 'Tabset', field: 'tabset', sortable: false },
-  ]
+  spaces.value = [{ name: 'tabset', align: 'left', label: 'Tabset', field: 'tabset', sortable: false }]
 
   _.forEach(sortedSpaces.value, (space: Space, i: number) => {
     spaces.value.push({
