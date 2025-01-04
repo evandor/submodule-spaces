@@ -28,6 +28,9 @@ class FirestoreSpacesPersistence implements SpacesPersistence {
   }
 
   async loadSpaces(): Promise<any> {
+    if (!useAuthStore().user) {
+      return Promise.resolve([]) // user not authenticated
+    }
     useUiStore().syncing = true
     LocalStorage.set('ui.spaces.lastUpdate', new Date().getTime())
     ;(await getDocs(spacesCollection())).forEach((doc) => {
