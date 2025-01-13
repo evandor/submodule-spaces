@@ -2,7 +2,7 @@
   <!-- SidePanelSpacesPage -->
   <q-page style="padding-top: 50px">
     <div class="q-ma-none q-pa-none">
-      <InfoMessageWidget :probability="1" ident="sidePanelSpacesPage_overview">
+      <InfoMessageWidget v-if="sortedSpaces.length === 0" :probability="1" ident="sidePanelSpacesPage_overview">
         Too many tabsets? Use <b>Spaces</b>! <br /><br />
         A Space is a collection of tabsets, and
         <b>each tabset can be assigned to multiple Spaces</b>.
@@ -12,8 +12,10 @@
 
       <q-list dense class="rounded-borders q-ma-none q-pa-none" :key="space.id" v-for="space in sortedSpaces">
         <q-expansion-item
-          header-class="q-ma-none q-pa-none q-pr-md bg-grey-2"
+          group="spacesGroup"
+          header-class="q-ma-none q-pa-none q-pr-md"
           :header-style="headerStyle(space)"
+          v-model="space.open"
           dense-toggle
           switch-toggle-side>
           <template v-slot:header>
@@ -21,21 +23,10 @@
               :key="randomKey"
               :caption="headerCaption(space.id)"
               :spaceLabel="space.label"
+              :spaceOpen="space.open"
               :spaceId="space.id" />
           </template>
 
-          <div class="row">
-            <div class="col text-right" style="border-bottom: 1px solid lightgray">
-              <q-icon
-                class="q-ma-xs cursor-pointer"
-                name="o_add"
-                size="16px"
-                color="primary"
-                @click="openNewTabsetDialog(space.id)">
-                <q-tooltip class="tooltip">Add Tabset</q-tooltip>
-              </q-icon>
-            </div>
-          </div>
           <q-card>
             <q-card-section>
               <NavTabsetsListWidgetNonBex
@@ -92,7 +83,6 @@
             <q-btn
               v-if="useSpacesStore().spaces.size > 0"
               icon="more_horiz"
-              color="primary"
               flat
               class="q-ma-none q-pa-xs q-mr-sm cursor-pointer"
               style="max-width: 20px"
@@ -101,13 +91,7 @@
               <q-tooltip class="tooltip">Manage Spaces</q-tooltip>
             </q-btn>
 
-            <q-btn
-              outline
-              label="New Space"
-              color="primary"
-              size="sm"
-              @click="addSpace()"
-              class="q-ma-none q-px-sm q-py-none" />
+            <q-btn outline label="New Space" size="sm" @click="addSpace()" class="q-ma-none q-px-sm q-py-none" />
           </div>
         </template>
       </FirstToolbarHelper2>
@@ -129,7 +113,6 @@ import NavigationService from 'src/services/NavigationService'
 import NewSpaceDialog from 'src/spaces/dialogues/NewSpaceDialog.vue'
 import { Space } from 'src/spaces/models/Space'
 import { useSpacesStore } from 'src/spaces/stores/spacesStore'
-import NewTabsetDialog from 'src/tabsets/dialogues/NewTabsetDialog.vue'
 import { Tabset, TabsetStatus, TabsetType } from 'src/tabsets/models/Tabset'
 import { useTabsetService } from 'src/tabsets/services/TabsetService2'
 import { useTabsetsStore } from 'src/tabsets/stores/tabsetsStore'
@@ -147,6 +130,10 @@ const $q = useQuasar()
 const router = useRouter()
 const spacesStore = useSpacesStore()
 
+class OpenableSpace extends Space {
+  open: boolean = false
+}
+
 const currentChromeTabs = ref<chrome.tabs.Tab[]>([])
 const tabsetName = ref<object>(null as unknown as object)
 const tabsetNameOptions = ref<object[]>([])
@@ -154,18 +141,17 @@ const openTabs = ref<chrome.tabs.Tab[]>([])
 const currentTabset = ref<Tabset | undefined>(undefined)
 const currentChromeTab = ref<chrome.tabs.Tab | undefined>(undefined)
 const tabsetsForSpaces = ref<Map<string, Tabset[]>>(new Map())
-const sortedSpaces = ref<Space[]>([])
+const sortedSpaces = ref<OpenableSpace[]>([])
 const randomKey = ref<string>(uid())
 
 function getSortedSpaces() {
-  return _.sortBy(
-    [...spacesStore.spaces.values()],
-    [
-      function (o: any) {
-        return o.label?.toLowerCase()
-      },
-    ],
-  )
+  return [...spacesStore.spaces.values()]
+    .map((s: Space) => {
+      const openableSpace = new OpenableSpace(s.id, s.label)
+      openableSpace.open = spacesStore.space?.id === s.id
+      return openableSpace
+    })
+    .sort((a: OpenableSpace, b: OpenableSpace) => a.label.toLowerCase().localeCompare(b.label.toLowerCase()))
 }
 
 const onMessageListener = async (message: any, sender: any, sendResponse: any) => {
@@ -324,20 +310,9 @@ const manageSpaces = () => {
       )
 }
 
-const openNewTabsetDialog = (spaceId: string) => {
-  $q.dialog({
-    component: NewTabsetDialog,
-    componentProps: {
-      tabsetId: useTabsetsStore().currentTabsetId,
-      spaceId: spaceId,
-      fromPanel: true,
-    },
-  })
-}
-
 const headerStyle = (space: Space) => {
   let style = 'border:0 solid grey;border-top-left-radius:4px;border-top-right-radius:4px;' //tabsetExpanded.value.get(tabset.id) ?
-  style = style + 'border-left:4px solid #f5f5f5'
+  // style = style + 'border-left:4px solid #f5f5f5'
   return style
 }
 
