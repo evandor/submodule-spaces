@@ -14,7 +14,7 @@ class IndexedDbSpacesPersistence implements SpacesPersistence {
 
   async init() {
     this.db = await this.initDatabase()
-    console.debug(` ...initialized spaces: ${this.getServiceName()}`, '✅')
+    // console.debug(` ...initialized spaces: ${this.getServiceName()}`, '✅')
     return Promise.resolve()
   }
 
