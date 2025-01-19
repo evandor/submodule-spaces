@@ -239,7 +239,7 @@ watchEffect(() => {
 })
 
 watchEffect(() => {
-  const windowId = useWindowsStore().currentChromeWindow?.id || 0
+  const windowId = useWindowsStore().currentBrowserWindow?.id || 0
   const c1: chrome.tabs.Tab | undefined = useTabsStore2().getCurrentChromeTab(windowId)
   // const c2: chrome.tabs.Tab | undefined = useTabsStore2().getCurrentChromeTab
   currentChromeTab.value = c1 ? c1 : undefined
