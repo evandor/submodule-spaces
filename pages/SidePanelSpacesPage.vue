@@ -288,26 +288,29 @@ const tabsetsWithoutSpaces = (): Tabset[] => {
   )
 }
 
-const addSpace = () => {
+const addSpace = async () => {
+  const currentTabsetId = await useTabsetsStore().getCurrentTabsetId()
   $q.dialog({
     component: NewSpaceDialog,
     componentProps: {
-      tabsetId: useTabsetsStore().currentTabsetId,
+      tabsetId: currentTabsetId,
       fromPanel: true,
     },
   })
 }
 
 const manageSpaces = () => {
-  $q.platform.is.cordova || $q.platform.is.capacitor
-    ? router.push('/spaces')
-    : NavigationService.openOrCreateTab(
-        [chrome.runtime.getURL('www/index.html#/mainpanel/spaces')],
-        undefined,
-        [],
-        true,
-        true,
-      )
+  if ($q.platform.is.cordova || $q.platform.is.capacitor) {
+    router.push('/spaces')
+  } else {
+    NavigationService.openOrCreateTab(
+      [chrome.runtime.getURL('www/index.html#/mainpanel/spaces')],
+      undefined,
+      [],
+      true,
+      true,
+    )
+  }
 }
 
 const headerStyle = (space: Space) => {

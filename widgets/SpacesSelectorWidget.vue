@@ -75,11 +75,12 @@ const spacesLabel = () => {
   return spacesStore.space?.label ? 'Space: ' + spacesStore.space.label : 'no space selected'
 }
 
-const openNewSpaceDialog = () => {
+const openNewSpaceDialog = async () => {
+  const currentTabsetId = await useTabsetsStore().getCurrentTabsetId()
   $q.dialog({
     component: NewSpaceDialog,
     componentProps: {
-      tabsetId: useTabsetsStore().currentTabsetId,
+      tabsetId: currentTabsetId,
       fromPanel: props.fromPanel,
     },
   })
