@@ -94,14 +94,14 @@
 
 <script lang="ts" setup>
 import _ from 'lodash'
-import FirstToolbarHelper2 from 'pages/sidepanel/helper/FirstToolbarHelper2.vue'
-import SpaceHeader from 'pages/sidepanel/helper/SpaceHeader.vue'
 import { uid, useQuasar } from 'quasar'
 import { FeatureIdent } from 'src/app/models/FeatureIdent'
 import { SidePanelViews } from 'src/app/models/SidePanelViews'
 import { useUtils } from 'src/core/services/Utils'
 import Analytics from 'src/core/utils/google-analytics'
 import { useFeaturesStore } from 'src/features/stores/featuresStore'
+import FirstToolbarHelper2 from 'src/pages/sidepanel/helper/FirstToolbarHelper2.vue'
+import SpaceHeader from 'src/pages/sidepanel/helper/SpaceHeader.vue'
 import NavigationService from 'src/services/NavigationService'
 import NewSpaceDialog from 'src/spaces/dialogues/NewSpaceDialog.vue'
 import { Space } from 'src/spaces/models/Space'
