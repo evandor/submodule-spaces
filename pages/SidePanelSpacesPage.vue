@@ -47,13 +47,6 @@
           expand-separator
           label="Unassigned Tabsets"
           :caption="tabsetsWithoutSpaces().length + ' tabset(s)'">
-          <!--          <InfoMessageWidget v-if="useSpacesStore().spaces.size === 0"-->
-          <!--                             :probability="1"-->
-          <!--                             ident="sidePanelSpacesPage_unassignedTabsets">-->
-          <!--            Start by creating a new Space by clicking on the plus sign and-->
-          <!--            add tabsets to it.-->
-          <!--          </InfoMessageWidget>-->
-
           <q-card>
             <q-card-section>
               <NavTabsetsListWidgetNonBex :tabsets="tabsetsWithoutSpaces()" :fromPanel="true" />
