@@ -4,7 +4,7 @@ import { LocalStorage, uid } from 'quasar'
 import NavigationService from 'src/services/NavigationService'
 import { Space } from 'src/spaces/models/Space'
 import SpacesPersistence from 'src/spaces/persistence/SpacesPersistence'
-import { useAuthStore } from 'stores/authStore'
+import { useAuthStore } from 'src/stores/authStore'
 import throttledQueue from 'throttled-queue'
 import { computed, ref, watch } from 'vue'
 
