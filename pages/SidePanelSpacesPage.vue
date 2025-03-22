@@ -2,13 +2,56 @@
   <!-- SidePanelSpacesPage -->
   <q-page style="padding-top: 50px">
     <div class="q-ma-none q-pa-none">
-      <InfoMessageWidget v-if="sortedSpaces.length === 0" :probability="1" ident="sidePanelSpacesPage_overview">
-        Too many tabsets? Use <b>Spaces</b>! <br /><br />
-        A Space is a collection of tabsets, and
-        <b>each tabset can be assigned to multiple Spaces</b>.
-        <br />
-        Deleting a Space does not delete any associated tabsets.
-      </InfoMessageWidget>
+      <DocuMessageWidget
+        v-if="sortedSpaces.length === 0 && showDocumentation"
+        @hideDocumentation="showDocumentation = false">
+        <template v-slot:header>
+          <div class="text-h6">Too many Collections?</div>
+          <div class="text-body1">Try <span class="text-bold">Spaces</span>!</div>
+        </template>
+        <template v-slot:message>
+          <div class="q-col text-body1">
+            <div class="row">
+              <div class="col-1">
+                <q-icon name="o_space_dashboard" color="primary" class="q-mb-xs" size="xs" />
+              </div>
+              <div class="col q-ml-sm text-body2">
+                A Space is a collection of tabsets, and
+                <span class="text-bold">each tabset can be assigned to multiple Spaces</span>.
+              </div>
+            </div>
+            <div class="row q-mt-sm">
+              <div class="col-1">
+                <q-icon name="o_delete" color="primary" class="q-mb-xs" size="xs" />
+              </div>
+              <div class="col q-ml-sm text-body2">
+                <span class="text-bold">Deleting</span> a Space does not delete any associated tabsets.
+              </div>
+            </div>
+            <div class="row q-mt-sm">
+              <div class="col-1">
+                <q-icon name="o_settings" color="primary" class="q-mb-xs" size="xs" />
+              </div>
+              <div class="col q-ml-sm text-body2">
+                Spaces can be deactivated in the <span class="text-bold">settings</span>.
+              </div>
+            </div>
+          </div>
+        </template>
+      </DocuMessageWidget>
+
+      <div v-if="sortedSpaces.length === 0 && showDocumentation" class="q-ma-md text-caption text-center">
+        No Spaces yet
+      </div>
+      <div v-if="sortedSpaces.length === 0 && !showDocumentation" class="q-ma-md text-caption text-center">
+        No Spaces yet
+        <q-icon
+          name="sym_o_help"
+          color="accent"
+          size="xs"
+          @click="showDocumentation = true"
+          class="cursor-pointer"></q-icon>
+      </div>
 
       <q-list dense class="rounded-borders q-ma-none q-pa-none" :key="space.id" v-for="space in sortedSpaces">
         <q-expansion-item
@@ -112,7 +155,7 @@ import { useTabsetsStore } from 'src/tabsets/stores/tabsetsStore'
 import { useTabsStore2 } from 'src/tabsets/stores/tabsStore2'
 import NavTabsetsListWidgetNonBex from 'src/tabsets/widgets/NavTabsetsListWidgetNonBex.vue'
 import { useUiStore } from 'src/ui/stores/uiStore'
-import InfoMessageWidget from 'src/ui/widgets/InfoMessageWidget.vue'
+import DocuMessageWidget from 'src/ui/widgets/DocuMessageWidget.vue'
 import { useWindowsStore } from 'src/windows/stores/windowsStore'
 import { onMounted, onUnmounted, ref, watchEffect } from 'vue'
 import { useRouter } from 'vue-router'
@@ -136,6 +179,7 @@ const currentChromeTab = ref<chrome.tabs.Tab | undefined>(undefined)
 const tabsetsForSpaces = ref<Map<string, Tabset[]>>(new Map())
 const sortedSpaces = ref<OpenableSpace[]>([])
 const randomKey = ref<string>(uid())
+const showDocumentation = ref(true)
 
 function getSortedSpaces() {
   return [...spacesStore.spaces.values()]
