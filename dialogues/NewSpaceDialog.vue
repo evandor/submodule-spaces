@@ -31,14 +31,13 @@
       </q-card-section>
 
       <q-card-actions align="right" class="text-primary">
-        <q-btn flat label="Cancel" @click="onDialogCancel" />
-        <q-btn
-          flat
+        <DialogButton label="Cancel" />
+        <DialogButton
           data-testid="newSpaceNameSubmit"
           label="Create new Space"
           :disable="newSpaceName.trim().length === 0 || newSpaceDialogWarning().length > 0"
-          v-close-popup
-          @click="createNewSpace()" />
+          @was-clicked="createNewSpace()"
+          :default-action="true" />
       </q-card-actions>
     </q-card>
   </q-dialog>
@@ -47,6 +46,7 @@
 <script lang="ts" setup>
 import { useDialogPluginComponent } from 'quasar'
 import { STRIP_CHARS_IN_USER_INPUT } from 'src/boot/constants'
+import DialogButton from 'src/core/dialog/buttons/DialogButton.vue'
 import { useCommandExecutor } from 'src/core/services/CommandExecutor'
 import { CreateSpaceCommand } from 'src/spaces/commands/CreateSpaceCommand'
 import { useSpacesStore } from 'src/spaces/stores/spacesStore'
