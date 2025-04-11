@@ -1,6 +1,6 @@
 <template>
   <!-- SidePanelSpacesPage -->
-  <q-page style="padding-top: 50px">
+  <q-page style="padding-top: 84px">
     <div class="q-ma-none q-pa-none">
       <DocuMessageWidget
         v-if="sortedSpaces.length === 0 && showDocumentation"
