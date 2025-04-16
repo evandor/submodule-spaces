@@ -6,7 +6,7 @@
         v-if="sortedSpaces.length === 0 && showDocumentation"
         @hideDocumentation="showDocumentation = false">
         <template v-slot:header>
-          <div class="text-h6">Too many Collections?</div>
+          <div class="text-h6">Too many Tabsets?</div>
           <div class="text-body1">Try <span class="text-bold">Spaces</span>!</div>
         </template>
         <template v-slot:message>
@@ -101,36 +101,28 @@
 
     <!-- place QPageSticky at end of page -->
     <q-page-sticky expand position="top" class="darkInDarkMode brightInBrightMode">
-      <FirstToolbarHelper2
-        @was-clicked="useUiStore().sidePanelSetActiveView(SidePanelViews.MAIN)"
-        :show-back-button="true">
-        <template v-slot:title>
-          <q-btn
-            flat
-            color="black"
-            @click="router.push('/sidepanel')"
-            no-caps
-            :label="useFeaturesStore().hasFeature(FeatureIdent.SPACES) ? 'Spaces' : 'Tabset List'" />
-          <q-tooltip :delay="1000" class="tooltip">Click to return to Tabsets View</q-tooltip>
-        </template>
+      <!--      <FirstToolbarHelper2-->
+      <!--        @was-clicked="useUiStore().sidePanelSetActiveView(SidePanelViews.MAIN)"-->
+      <!--        :show-back-button="true">-->
+      <!--        <template v-slot:iconsRight>-->
+      <!--          <div class="q-mt-sm q-ma-none q-qa-none q-pr-sm">-->
+      <!--            <q-btn-->
+      <!--              v-if="useSpacesStore().spaces.size > 0"-->
+      <!--              icon="more_horiz"-->
+      <!--              flat-->
+      <!--              class="q-ma-none q-pa-xs q-mr-sm cursor-pointer"-->
+      <!--              style="max-width: 20px"-->
+      <!--              size="10px"-->
+      <!--              @click="manageSpaces()">-->
+      <!--              <q-tooltip class="tooltip">Manage Spaces</q-tooltip>-->
+      <!--            </q-btn>-->
 
-        <template v-slot:iconsRight>
-          <div class="q-mt-sm q-ma-none q-qa-none q-pr-sm">
-            <q-btn
-              v-if="useSpacesStore().spaces.size > 0"
-              icon="more_horiz"
-              flat
-              class="q-ma-none q-pa-xs q-mr-sm cursor-pointer"
-              style="max-width: 20px"
-              size="10px"
-              @click="manageSpaces()">
-              <q-tooltip class="tooltip">Manage Spaces</q-tooltip>
-            </q-btn>
+      <!--            <q-btn outline label="New Space" size="sm" @click="addSpace()" class="q-ma-none q-px-sm q-py-none" />-->
+      <!--          </div>-->
+      <!--        </template>-->
+      <!--      </FirstToolbarHelper2>-->
 
-            <q-btn outline label="New Space" size="sm" @click="addSpace()" class="q-ma-none q-px-sm q-py-none" />
-          </div>
-        </template>
-      </FirstToolbarHelper2>
+      <ViewToolbarHelper />
     </q-page-sticky>
   </q-page>
 </template>
@@ -139,12 +131,11 @@
 import _ from 'lodash'
 import { uid, useQuasar } from 'quasar'
 import { FeatureIdent } from 'src/app/models/FeatureIdent'
-import { SidePanelViews } from 'src/app/models/SidePanelViews'
 import { useUtils } from 'src/core/services/Utils'
 import Analytics from 'src/core/utils/google-analytics'
 import { useFeaturesStore } from 'src/features/stores/featuresStore'
-import FirstToolbarHelper2 from 'src/pages/sidepanel/helper/FirstToolbarHelper2.vue'
 import SpaceHeader from 'src/pages/sidepanel/helper/SpaceHeader.vue'
+import ViewToolbarHelper from 'src/pages/sidepanel/helper/ViewToolbarHelper.vue'
 import NavigationService from 'src/services/NavigationService'
 import NewSpaceDialog from 'src/spaces/dialogues/NewSpaceDialog.vue'
 import { Space } from 'src/spaces/models/Space'
@@ -154,7 +145,6 @@ import { useTabsetService } from 'src/tabsets/services/TabsetService2'
 import { useTabsetsStore } from 'src/tabsets/stores/tabsetsStore'
 import { useTabsStore2 } from 'src/tabsets/stores/tabsStore2'
 import NavTabsetsListWidgetNonBex from 'src/tabsets/widgets/NavTabsetsListWidgetNonBex.vue'
-import { useUiStore } from 'src/ui/stores/uiStore'
 import DocuMessageWidget from 'src/ui/widgets/DocuMessageWidget.vue'
 import { useWindowsStore } from 'src/windows/stores/windowsStore'
 import { onMounted, onUnmounted, ref, watchEffect } from 'vue'
