@@ -48,7 +48,7 @@ class IndexedDbSpacesPersistence implements SpacesPersistence {
   }
 
   async loadSpaces(): Promise<any> {
-    console.debug(' ...loading spaces...')
+    //console.debug(' ...loading spaces...')
     const spaces = await this.db.getAll(this.STORE_IDENT)
     spaces.forEach((s: Space) => {
       useSpacesStore().putSpace(s)
