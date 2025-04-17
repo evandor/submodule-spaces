@@ -122,7 +122,11 @@
       <!--        </template>-->
       <!--      </FirstToolbarHelper2>-->
 
-      <ViewToolbarHelper />
+      <ViewToolbarHelper>
+        <template v-slot:iconsRight>
+          <q-btn outline label="New Space" size="sm" @click="addSpace()" class="q-ma-sm q-mr-xs" />
+        </template>
+      </ViewToolbarHelper>
     </q-page-sticky>
   </q-page>
 </template>
