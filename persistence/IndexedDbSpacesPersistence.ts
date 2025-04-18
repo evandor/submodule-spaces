@@ -43,6 +43,7 @@ class IndexedDbSpacesPersistence implements SpacesPersistence {
     this.db.clear(name).catch((e) => console.warn(e))
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
   async deleteSpace(spaceId: string) {
     return this.db.delete(this.STORE_IDENT, spaceId)
   }

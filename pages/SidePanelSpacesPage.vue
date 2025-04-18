@@ -207,6 +207,7 @@ onMounted(() => {
 
   if (inBexMode()) {
     //console.log("====> adding listener <====", chrome.runtime.onMessage.hasListeners())
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
     chrome.runtime.onMessage.addListener(onMessageListener)
   }
 })
@@ -214,6 +215,7 @@ onMounted(() => {
 onUnmounted(() => {
   // TODO unmount other listeners as well!
   //console.log("====> removing listener <====", chrome.runtime.onMessage.hasListener(onMessageListener))
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
   chrome.runtime.onMessage.removeListener(onMessageListener)
   //console.log("====> removing listener <====", chrome.runtime.onMessage.hasListener(onMessageListener))
 })
@@ -260,8 +262,10 @@ async function getTabsetsForSpaces() {
   return res
 }
 
-watchEffect(async () => {
-  tabsetsForSpaces.value = await getTabsetsForSpaces()
+watchEffect(() => {
+  getTabsetsForSpaces().then((res: Map<string, Tabset[]>) => {
+    tabsetsForSpaces.value = res
+  })
 })
 
 watchEffect(() => {
