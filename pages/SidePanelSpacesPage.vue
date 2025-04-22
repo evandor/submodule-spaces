@@ -124,6 +124,16 @@
 
       <ViewToolbarHelper>
         <template v-slot:iconsRight>
+          <q-btn
+            v-if="useSpacesStore().spaces.size > 0"
+            icon="more_horiz"
+            flat
+            class="q-ma-none q-pa-xs q-mr-sm cursor-pointer"
+            style="max-width: 20px"
+            size="10px"
+            @click="manageSpaces()">
+            <q-tooltip class="tooltip">Manage Spaces</q-tooltip>
+          </q-btn>
           <q-btn outline label="New Space" size="sm" @click="addSpace()" class="q-ma-sm q-mr-xs" />
         </template>
       </ViewToolbarHelper>
@@ -137,10 +147,10 @@ import { uid, useQuasar } from 'quasar'
 import { FeatureIdent } from 'src/app/models/FeatureIdent'
 import SpaceHeader from 'src/core/pages/sidepanel/helper/SpaceHeader.vue'
 import ViewToolbarHelper from 'src/core/pages/sidepanel/helper/ViewToolbarHelper.vue'
+import { useNavigationService } from 'src/core/services/NavigationService'
 import { useUtils } from 'src/core/services/Utils'
 import Analytics from 'src/core/utils/google-analytics'
 import { useFeaturesStore } from 'src/features/stores/featuresStore'
-import NavigationService from 'src/services/NavigationService'
 import NewSpaceDialog from 'src/spaces/dialogues/NewSpaceDialog.vue'
 import { Space } from 'src/spaces/models/Space'
 import { useSpacesStore } from 'src/spaces/stores/spacesStore'
@@ -338,13 +348,7 @@ const manageSpaces = () => {
   if ($q.platform.is.cordova || $q.platform.is.capacitor) {
     router.push('/spaces')
   } else {
-    NavigationService.openOrCreateTab(
-      [chrome.runtime.getURL('www/index.html#/mainpanel/spaces')],
-      undefined,
-      [],
-      true,
-      true,
-    )
+    useNavigationService().browserTabFor(chrome.runtime.getURL('www/index.html#/mainpanel/spaces'))
   }
 }
 

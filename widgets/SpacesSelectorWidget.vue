@@ -36,7 +36,7 @@
           v-if="spacesOptions.length > 0 && !props.fromPanel"
           clickable
           v-close-popup
-          @click="router.push('/spaces')">
+          @click="router.push('/fullpage/spaces')">
           <q-item-section>Manage Spaces</q-item-section>
         </q-item>
       </q-list>

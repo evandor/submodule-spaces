@@ -43,7 +43,7 @@
         <q-btn class="q-ml-md" label="Delete Space" @click="deleteSpace()" :disable="selectedSpace === ''" />
       </div>
       <div class="col text-right">
-        <q-btn label="Close Window" color="primary" @click="closeWindow()" />
+        <q-btn v-if="!props.fullpage" label="Close Window" color="primary" @click="closeWindow()" />
       </div>
     </div>
   </q-page>
@@ -71,6 +71,8 @@ const selectedSpace = ref<string>('')
 const spaceOptions = ref<object[]>([])
 
 const { sendMsg } = useUtils()
+
+const props = defineProps<{ fullpage: boolean }>()
 
 onMounted(() => {
   Analytics.firePageViewEvent('MainPanelSpacesPage', document.location.href)
