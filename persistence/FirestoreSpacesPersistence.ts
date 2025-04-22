@@ -48,6 +48,7 @@ class FirestoreSpacesPersistence implements SpacesPersistence {
     useUiStore().syncing = false
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
   async deleteSpace(entityId: string) {
     useUiStore().syncing = true
     await deleteDoc(spaceDoc(entityId))
