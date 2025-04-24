@@ -70,7 +70,7 @@ const rows = ref<object[]>([])
 const selectedSpace = ref<string>('')
 const spaceOptions = ref<object[]>([])
 
-const { sendMsg } = useUtils()
+const { sendMsg, closeWindow } = useUtils()
 
 const props = defineProps<{ fullpage: boolean }>()
 
@@ -170,13 +170,5 @@ const updateSpaces = (spaceIndex: number, tabsetIndex: number) => {
 
 const deleteSpace = () => {
   useSpacesStore().deleteById(selectedSpace.value)
-}
-
-const closeWindow = () => {
-  chrome.tabs.getCurrent().then((current) => {
-    if (current && current.id) {
-      chrome.tabs.remove(current.id)
-    }
-  })
 }
 </script>
