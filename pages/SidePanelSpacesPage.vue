@@ -75,7 +75,7 @@
               <NavTabsetsListWidgetNonBex
                 :tabsets="(tabsetsForSpaces.get(space.id) as Tabset[]) || []"
                 :spaceId="space.id"
-                :fromPanel="true" />
+                :view-port="'sidepanel'" />
             </q-card-section>
           </q-card>
         </q-expansion-item>
@@ -92,7 +92,10 @@
           :caption="tabsetsWithoutSpaces().length + ' tabset(s)'">
           <q-card>
             <q-card-section>
-              <NavTabsetsListWidgetNonBex :tabsets="tabsetsWithoutSpaces()" :fromPanel="true" />
+              <NavTabsetsListWidgetNonBex
+                :tabsets="tabsetsWithoutSpaces()"
+                :fromPanel="true"
+                :view-port="'sidepanel'" />
             </q-card-section>
           </q-card>
         </q-expansion-item>
