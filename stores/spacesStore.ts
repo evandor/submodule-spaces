@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import { defineStore } from 'pinia'
 import { LocalStorage, uid } from 'quasar'
-import NavigationService from 'src/services/NavigationService'
+import { useNavigationService } from 'src/core/services/NavigationService'
 import { Space } from 'src/spaces/models/Space'
 import SpacesPersistence from 'src/spaces/persistence/SpacesPersistence'
 import { useAuthStore } from 'src/stores/authStore'
@@ -112,13 +112,13 @@ export const useSpacesStore = defineStore('spaces', () => {
    * @param label
    */
   async function createSpace(label: string): Promise<Space> {
-    const exceedInfo = useAuthStore().limitExceeded('SPACES', useSpacesStore().spaces.size)
+    const exceedInfo = useAuthStore().limitExceeded('SPACES', spaces.value.size)
     if (exceedInfo.exceeded) {
-      await NavigationService.openOrCreateTab([
+      await useNavigationService().browserTabFor(
         chrome.runtime.getURL(
           `/www/index.html#/mainpanel/settings?tab=account&exceeded=spaces&limit=${exceedInfo.limit}`,
         ),
-      ])
+      )
       return Promise.reject('tabsetLimitExceeded')
     }
 
